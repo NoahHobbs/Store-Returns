@@ -159,13 +159,18 @@ if __name__ == '__main__':
             print(f'You entered {values["returned"]}')
             # clearing my text field after the user enters a return
             window.FindElement('returned').Update('')
-        if event == 'Return all':
+        if event == 'Process all':
             # will return both Kohl's and Amazon returns regardless of their
             # company
-            print(return_queue.return_all())
-            window.FindElement('kohls_text').Update(f'All Kohl\'s returns '
+            x = return_queue.return_all("Kohls")
+            total_kohls = sum([len(r) for r in x])
+            window.FindElement('kohls_text').Update(f'{total_kohls} '
+                                                    f'Kohl\'s returns '
                                                     'processed')
-            window.FindElement('amazon_text').Update('All Amazon returns '
+            y = return_queue.return_all("Amazon")
+            total_amazon = sum([len(r) for r in y])
+            window.FindElement('amazon_text').Update(f'{total_amazon} '
+                                                     f'Amazon returns '
                                                      'processed')
         if event == "return_kohls":
             # Returns specifically Kohl's items
